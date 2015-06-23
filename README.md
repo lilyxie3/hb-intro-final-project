@@ -1,5 +1,7 @@
 Final Project - Blackjack
 
+# ace 11 or 1
+
 # ace 11 or 1 
 # J, Q, K are 10
 # the rest of the cards 2 - 10 are face value
@@ -11,3 +13,4 @@ Final Project - Blackjack
 # the better score not exceeding 21 wins
 # equal scores is a draw (no winner)
 # any score over 21 is a bust (busted player loses, both bust --> no winner)
+
