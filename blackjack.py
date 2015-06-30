@@ -37,6 +37,10 @@ class Deck:
 	def deal_card(self):
 		return self.deck.pop()
 
+	def return_cards(self, cards):
+		for card in cards:
+			self.deck.append(card)
+
 class Hand:
 	def __init__(self):
 		self.hand=[]
@@ -73,11 +77,15 @@ def deal():
 	player = Hand()
 	dealer = Hand()
 
-	hand.add_card(deck.deal_card())
-	hand.add_card(deck.deal_card())
+	player.add_card(deck.deal_card())
+	player.add_card(deck.deal_card())
 
-	print hand
+	print player
+	print len(deck.deck)
 
+	deck.return_cards(player.hand)
+	print len(deck.deck)
+deal ()
 
 	
 
