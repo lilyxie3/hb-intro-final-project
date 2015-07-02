@@ -8,6 +8,7 @@ score = 0
 dealer = []
 player = []
 deck = []
+in_game = False
 
 class Card:
 	def __init__(self, suit, rank):
@@ -17,8 +18,8 @@ class Card:
 	def __str__(self):
 		return self.suit + " of " + self.rank
 
-	def get_suit(self):
-		return self.suit
+	# def get_suit(self):
+	# 	return self.suit
 
 	def get_rank(self):
 		return self.rank
@@ -29,14 +30,18 @@ class Deck:
 		for s in suits:
 			for r in ranks:
 				self.deck.append(Card(s, r))
-		self.shuffle()
+		# self.shuffle()
 
-	def shuffle(self):
-		random.shuffle(self.deck)
+	# def shuffle(self):
+	# 	random.shuffle(self.deck)
+
+	# def deal_card(self):
+	# 	return self.deck.pop()
 
 	def deal_card(self):
-		return self.deck.pop()
+		return random.choice(self.deck)
 
+	#to put cards into deck
 	def return_cards(self, cards):
 		for card in cards:
 			self.deck.append(card)
@@ -73,19 +78,53 @@ class Hand:
 
 def deal():
 	deck = Deck()
-	deck.shuffle()
+	# deck.shuffle()
 	player = Hand()
 	dealer = Hand()
 
 	player.add_card(deck.deal_card())
 	player.add_card(deck.deal_card())
+	dealer.hand.add_card(deck.deal_card())
+	dealer.hand.add_card(deck.deal_card())
 
-	print player
-	print len(deck.deck)
+	print ("Your cards: %s" %(player))
 
-	deck.return_cards(player.hand)
-	print len(deck.deck)
-deal ()
+def hit():
+	if in_game == True:
+		player.hit(deck)
+		if player.busted():
+			print ("You are busted!")
+			print ("New game?")
+			score-=1
+			in_game = False
+		if player.get_value() == 21
+			print ("Horray, you got blackjack!")
+			print ("New game?")
+			score+=1
+			in_game = False
+
+def stand():
+	if in_game == True:
+		while dealer.get_value () < 17:
+			dealer.hit(deck)
+			if dealer.busted():
+				print ("Dealer is busted!")
+				score+=1
+		if not dealer.busted():
+			if dealer.get_value() > play.get_value():
+				print ("Dealer won!")
+				score-=1
+
+
+
+
+
+# 	print player
+# 	print len(deck.deck)
+
+# 	deck.return_cards(player.hand)
+# 	print len(deck.deck)
+# deal ()
 
 	
 
