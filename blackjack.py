@@ -2,6 +2,7 @@ import random
 
 suits = ('Club', 'Spade', 'Heart', 'Diamond')
 ranks = ('A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K')
+# ranks = ('A', 'J', 'Q', 'K')
 values = {'A':1,'2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, '10':10, 'J':10, 'Q':10, 'K':10}
 
 score = 0
@@ -70,10 +71,11 @@ class Hand:
 		ace = False
 		for card in self.hand:
 			sum += values.get(card.get_rank())
-			if card.get_rank()=='A':
+			if card.get_rank()=='A':				
 				ace = True
-		if ace and sum <=10:
-				return sum+10
+
+		if ace and sum <=11:
+			return sum+10
 		else:
 			return sum
 
@@ -107,7 +109,7 @@ class Hand:
 			return True
 
 def deal():
-	global player, dealer, deck
+	global player, dealer, deck, score, in_game
 	deck = Deck()
 	# deck.shuffle()
 
@@ -122,9 +124,9 @@ def deal():
 	# print player
 	# print dealer.get_card(0)
 
-	print "Your cards: %s" % str(player)
-	print "Dealer's card: %s" % str(dealer.get_card(0))
-
+	print "Your cards:\n%s" % str(player)
+	print "Dealer's card:\n%s" % str(dealer.get_card(0))
+	
 	if player.get_value()== 21:
 		print ("Horray, you got blackjack!")
 		score+=1
@@ -141,11 +143,15 @@ def hit():
 			# print ("Deal again?")
 			score-=1						
 			in_game = False
-		if player.get_value() == 21:
-			print ("Horray, you got blackjack!")
-			# print ("Deal again?")
-			score+=1
-			in_game = False
+		# if player.get_value() > dealer.get_value():
+		#	print "You win! Good job!"
+		#	score+=1
+		#	in_game = False
+		# if player.get_value() == 21:
+		# 	print ("Horray, you got blackjack!")
+		# 	# print ("Deal again?")
+		# 	score+=1
+		# 	in_game = False
 		
 
 def stand():
@@ -155,7 +161,8 @@ def stand():
 			dealer.hit(deck)
 			if dealer.busted():
 				print ("Dealer is busted!")
-				score+=1
+				score+=1				
+				break
 		if not dealer.busted() and dealer.get_value() > player.get_value():
 				print ("Dealer won. It's not your day.")
 				score-=1
@@ -163,31 +170,36 @@ def stand():
 			if dealer.get_value()==player.get_value():
 				print ("It's a push, no winners.")
 		if not dealer.busted():
-			if dealer.get_value < player.get_value():
+			if dealer.get_value() < player.get_value():
 				print ("You win! Good job!")
 				score+=1
 
 	in_game = False
 
 
+readme_file = open('README.md', 'r')
+for line in readme_file:
+	print line
+
+print("Now starting...\n")
 
 while True:
-	deal()
 	in_game=True
+	deal()	
 
 	while in_game:
-		y = raw_input("wanna hit? y/n")
+		y = raw_input("wanna hit? y/n\n")
 		if y == 'y':
 			hit()		
-			print "Your cards: %s" % str(player)
+			print "Your cards:\n%s" % str(player)
 			# print dealer.get_card(0)
 		else:
 			stand()
-			print "Dealer's cards: %s" % str(dealer)
+			print "Dealer's cards:\n%s" % str(dealer)
 
 	else:
 		print "your score is: %i" % int(score)
-		y = raw_input ("Deal again? y/n")
+		y = raw_input ("Deal again? y/n\n")
 		if y != 'y':
 			break 
 	
