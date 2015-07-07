@@ -76,7 +76,7 @@ class Hand:
 				return sum+10
 		else:
 			return sum
-
+	
 		
 		# num_aces = 0
 		# base_points = 0
@@ -119,10 +119,11 @@ def deal():
 	dealer.add_card(deck.deal_card())
 	dealer.add_card(deck.deal_card())
 
-	print player
-	print dealer.get_card(0)
+	# print player
+	# print dealer.get_card(0)
 
-	# print ("Your cards: %s" %(Hand()))
+	print "Your cards: %s" % str(player)
+	print "Dealer's card: %s" % str(dealer.get_card(0))
 
 in_game = False
 
@@ -173,12 +174,14 @@ while True:
 		y = raw_input("wanna hit? y/n")
 		if y == 'y':
 			hit()		
-			print player
+			print "Your cards: %s" % str(player)
 			# print dealer.get_card(0)
 		else:
 			stand()
-			print dealer
+			print "Dealer's cards: %s" % str(dealer)
+
 	else:
+		print "your score is: %i" % int(score)
 		y = raw_input ("Deal again? y/n")
 		if y != 'y':
 			break 
