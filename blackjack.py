@@ -76,7 +76,7 @@ class Hand:
 				return sum+10
 		else:
 			return sum
-	
+
 		
 		# num_aces = 0
 		# base_points = 0
@@ -124,6 +124,11 @@ def deal():
 
 	print "Your cards: %s" % str(player)
 	print "Dealer's card: %s" % str(dealer.get_card(0))
+
+	if player.get_value()== 21:
+		print ("Horray, you got blackjack!")
+		score+=1
+		in_game = False
 
 in_game = False
 
