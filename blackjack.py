@@ -59,6 +59,9 @@ class Hand:
 	def add_card(self, card):
 		self.hand.append(card)
 
+	def get_card(self, index):
+		return self.hand[index]
+
 
 
 # ace counts as 1, if the hand has an ace and the sum (including ace=1) is equal or less than 10, then add 10 to hand value
@@ -117,6 +120,7 @@ def deal():
 	dealer.add_card(deck.deal_card())
 
 	print player
+	print dealer.get_card(0)
 
 	# print ("Your cards: %s" %(Hand()))
 
@@ -128,12 +132,12 @@ def hit():
 		player.hit(deck)
 		if player.busted():
 			print ("You are busted!")
-			print ("Deal again?")
+			# print ("Deal again?")
 			score-=1						
 			in_game = False
 		if player.get_value() == 21:
 			print ("Horray, you got blackjack!")
-			print ("Deal again?")
+			# print ("Deal again?")
 			score+=1
 			in_game = False
 		
@@ -156,8 +160,8 @@ def stand():
 			if dealer.get_value < player.get_value():
 				print ("You win! Good job!")
 				score+=1
+
 	in_game = False
-	print ("Deal again?")
 
 
 
@@ -170,12 +174,15 @@ while True:
 		if y == 'y':
 			hit()		
 			print player
+			# print dealer.get_card(0)
 		else:
 			stand()
-	y = raw_input ("Play again? y/n")
-	if y != 'y':
-		break
-
+			print dealer
+	else:
+		y = raw_input ("Deal again? y/n")
+		if y != 'y':
+			break 
+	
 
 # while True:
 # 	deal()
