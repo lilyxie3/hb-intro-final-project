@@ -1,16 +1,18 @@
 import random
 
+# define tuples and dictinaries for cards
 suits = ('Club', 'Spade', 'Heart', 'Diamond')
 ranks = ('A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K')
 # ranks = ('A', 'J', 'Q', 'K')
 values = {'A':1,'2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, '10':10, 'J':10, 'Q':10, 'K':10}
 
+# initialize some global variables for tracking scores and lists of cards
 score = 0
 dealer = []
 player = []
 deck = []
 
-
+# define Card class
 class Card:
 	def __init__(self, suit, rank):
 		self.suit = suit
@@ -25,6 +27,8 @@ class Card:
 	def get_rank(self):
 		return self.rank
 
+
+# deine Deck class
 class Deck:
 	def __init__(self):
 		self.deck = []
@@ -47,6 +51,7 @@ class Deck:
 		for card in cards:
 			self.deck.append(card)
 
+# define Hand class
 class Hand:
 	def __init__(self):
 		self.hand=[]
@@ -63,9 +68,7 @@ class Hand:
 	def get_card(self, index):
 		return self.hand[index]
 
-
-
-# ace counts as 1, if the hand has an ace and the sum (including ace=1) is equal or less than 10, then add 10 to hand value
+# ace counts as 1, if the hand has an ace and the sum (including ace=1) is equal or less than 10, then add 11 to hand value
 	def get_value(self):
 		sum=0
 		ace = False
@@ -79,24 +82,6 @@ class Hand:
 		else:
 			return sum
 
-		
-		# num_aces = 0
-		# base_points = 0
-		# for card in self.hand:
-		# 	if card == 'A':
-		# 		num_aces +=1
-		# 	else:
-		# 		base_points +=values.get(card.get_rank())	
-			## is this card an Ace?
-			## if yes, num_aces += 1
-			## else base_points += values.get(card.get_rank())
-
-
-		# b = calc_point (base_points, num_aces)
-		# protocol: 0 => busted, 
-		# return b
-
-
 
 	def hit(self, deck):
 		c = deck.deal_card()
@@ -108,6 +93,7 @@ class Hand:
 		if sum > 21:
 			return True
 
+#define dealer's hand and player's hand and print out the cards
 def deal():
 	global player, dealer, deck, score, in_game
 	deck = Deck()
@@ -121,8 +107,8 @@ def deal():
 	dealer.add_card(deck.deal_card())
 	dealer.add_card(deck.deal_card())
 
-	# print player
-	# print dealer.get_card(0)
+	# print player's cards
+	# print dealer's cards
 
 	print "Your cards:\n%s" % str(player)
 	print "Dealer's card:\n%s" % str(dealer.get_card(0))
@@ -138,31 +124,26 @@ def hit():
 	global in_game, score
 	if in_game == True:
 		player.hit(deck)
+		#print player's cards, if the hand is in play, play hits
 		if player.busted():
 			print ("You are busted!")
-			# print ("Deal again?")
+			# print score
 			score-=1						
 			in_game = False
-		# if player.get_value() > dealer.get_value():
-		#	print "You win! Good job!"
-		#	score+=1
-		#	in_game = False
-		# if player.get_value() == 21:
-		# 	print ("Horray, you got blackjack!")
-		# 	# print ("Deal again?")
-		# 	score+=1
-		# 	in_game = False
 		
 
 def stand():
 	global in_game, score
 	if in_game == True:
+		# if hand is in play, dealer continues to hit until his hand has a value > 17
 		while dealer.get_value () < 17:
 			dealer.hit(deck)
+			#print dealer's cards
 			if dealer.busted():
 				print ("Dealer is busted!")
 				score+=1				
 				break
+			#print a message to outcome and update score
 		if not dealer.busted() and dealer.get_value() > player.get_value():
 				print ("Dealer won. It's not your day.")
 				score-=1
@@ -176,7 +157,7 @@ def stand():
 
 	in_game = False
 
-
+# starts game
 readme_file = open('README.md', 'r')
 for line in readme_file:
 	print line
@@ -203,6 +184,11 @@ while True:
 		if y != 'y':
 			break 
 	
+print player
+print len(deck.deck)
+
+# deck.return_cards(player.hand)
+# print len(deck.deck)
 
 # while True:
 # 	deal()
