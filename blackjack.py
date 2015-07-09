@@ -47,9 +47,9 @@ class Deck:
 		return random.choice(self.deck)
 
 	#to put cards into deck
-	def return_cards(self, cards):
-		for card in cards:
-			self.deck.append(card)
+	# def return_cards(self, cards):
+	# 	for card in cards:
+	# 		self.deck.append(card)
 
 # define Hand class
 class Hand:
